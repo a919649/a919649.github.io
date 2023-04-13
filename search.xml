@@ -8,7 +8,7 @@
       <link href="/2023/04/13/post/"/>
       <url>/2023/04/13/post/</url>
       
-        <content type="html"><![CDATA[<p>sql-map工具的使用</p><p><code>python sqlmap.py -u xxx</code>(url) </p>]]></content>
+        <content type="html"><![CDATA[<p>sql-map工具的使用</p><p>扫描端口</p><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">python sqlmap.py <span class="operator">-</span>u xxx</span><br></pre></td></tr></table></figure>]]></content>
       
       
       <categories>
