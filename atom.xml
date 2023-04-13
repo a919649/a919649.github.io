@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2023-04-13T14:47:33.479Z</updated>
+  <updated>2023-04-13T15:33:45.844Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -17,15 +17,30 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>sql学习</title>
+    <title>sql-map学习</title>
     <link href="http://example.com/2023/04/13/post/"/>
     <id>http://example.com/2023/04/13/post/</id>
     <published>2023-04-13T14:44:17.000Z</published>
-    <updated>2023-04-13T14:47:33.479Z</updated>
+    <updated>2023-04-13T15:33:45.844Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;sql-map工具的使用&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;python sqlmap.py -u xxx&lt;/code&gt;(url)</summary>
+        
+      
     
     
     
+    <category term="web学习" scheme="http://example.com/categories/web%E5%AD%A6%E4%B9%A0/"/>
     
+    
+    <category term="web" scheme="http://example.com/tags/web/"/>
+    
+    <category term="sql" scheme="http://example.com/tags/sql/"/>
     
   </entry>
   

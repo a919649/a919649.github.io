@@ -4,13 +4,27 @@
   
     
     <entry>
-      <title>sql学习</title>
+      <title>sql-map学习</title>
       <link href="/2023/04/13/post/"/>
       <url>/2023/04/13/post/</url>
       
-        <content type="html"><![CDATA[]]></content>
+        <content type="html"><![CDATA[<p>sql-map工具的使用</p><p><code>python sqlmap.py -u xxx</code>(url) </p>]]></content>
       
       
+      <categories>
+          
+          <category> web学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> web </tag>
+            
+            <tag> sql </tag>
+            
+        </tags>
       
     </entry>
     
