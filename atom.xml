@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2023-04-13T15:58:38.137Z</updated>
+  <updated>2023-04-17T14:36:22.831Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,60 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>ctfhubweb刷题之sql</title>
+    <link href="http://example.com/2023/04/17/123/"/>
+    <id>http://example.com/2023/04/17/123/</id>
+    <published>2023-04-17T12:02:17.000Z</published>
+    <updated>2023-04-17T14:36:22.831Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;ctfhubweb刷题之sql&quot;&gt;&lt;a href=&quot;#ctfhubweb刷题之sql&quot; class=&quot;headerlink&quot; title=&quot;ctfhubweb刷题之sql&quot;&gt;&lt;/a&gt;ctfhubweb刷题之sql&lt;/h1&gt;&lt;h2</summary>
+        
+      
+    
+    
+    
+    <category term="web学习" scheme="http://example.com/categories/web%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+    <category term="web" scheme="http://example.com/tags/web/"/>
+    
+    <category term="sql" scheme="http://example.com/tags/sql/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>sql学习</title>
+    <link href="http://example.com/2023/04/17/sql%E5%AD%A6%E4%B9%A0/"/>
+    <id>http://example.com/2023/04/17/sql%E5%AD%A6%E4%B9%A0/</id>
+    <published>2023-04-17T11:02:17.000Z</published>
+    <updated>2023-04-17T12:37:53.905Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;sql注入学习&quot;&gt;&lt;a href=&quot;#sql注入学习&quot; class=&quot;headerlink&quot; title=&quot;  sql注入学习 &quot;&gt;&lt;/a&gt;&lt;center&gt;  sql注入学习 &lt;/center&gt;&lt;/h1&gt;&lt;h4 id=&quot;一，SQL注入：&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="web学习" scheme="http://example.com/categories/web%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+    <category term="web" scheme="http://example.com/tags/web/"/>
+    
+    <category term="sql" scheme="http://example.com/tags/sql/"/>
+    
+  </entry>
   
   <entry>
     <title>sql-map学习</title>
@@ -50,14 +104,14 @@
     <link href="http://example.com/2023/04/13/%E4%B8%93%E5%85%AB%E6%94%B9%E9%94%99%E7%A7%AF%E7%B4%AF/"/>
     <id>http://example.com/2023/04/13/%E4%B8%93%E5%85%AB%E6%94%B9%E9%94%99%E7%A7%AF%E7%B4%AF/</id>
     <published>2023-04-13T14:26:56.000Z</published>
-    <updated>2023-04-13T15:16:16.249Z</updated>
+    <updated>2023-04-17T11:04:41.186Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h1 id=&quot;专八改错积累&quot;&gt;&lt;a href=&quot;#专八改错积累&quot; class=&quot;headerlink&quot;</summary>
+    <summary type="html">&lt;h1 id=&quot;专八改错积累&quot;&gt;&lt;a href=&quot;#专八改错积累&quot; class=&quot;headerlink&quot; title=&quot; 专八改错积累&quot;&gt;&lt;/a&gt;&lt;center&gt;</summary>
         
       
     
